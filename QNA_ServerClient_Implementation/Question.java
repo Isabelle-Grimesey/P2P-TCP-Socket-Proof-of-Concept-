@@ -2,7 +2,7 @@
 Question has:
 	- question string
 	- list of answers
-	- a unique identifier of the associated socket.
+	- a unique identifier of the associated ServiceThread.
 */
 import java.util.ArrayList;
 import java.util.UUID;
@@ -10,12 +10,32 @@ import java.util.UUID;
 public class Question {
     private String question;
     private ArrayList<String> answers;
-    private UUID uuidOfAssociatedSocket = UUID.randomUUID();
+
+    public UUID getUuidofType1Conn() {
+        return uuidofType1Conn;
+    }
+
+    public UUID getUuidofType2Conn() {
+        return uuidofType2Conn;
+    }
+
+    private UUID uuidofType1Conn = null;
+    private UUID uuidofType2Conn = null;
 
 
     public Question(String question) {
         this.question = question;
         this.answers = new ArrayList<String>();
+    }
+    public Question(String question, boolean type1, UUID uuidofAssociatedServiceThread){
+        this.question = question;
+        this.answers = new ArrayList<String>();
+        if (type1){
+            uuidofType1Conn = UUID.randomUUID();
+        }
+        else{
+            uuidofType2Conn = UUID.randomUUID();
+        }
     }
 
     public String getQuestion() {
@@ -28,10 +48,6 @@ public class Question {
 
     public void addAnswer(String answer){
         this.answers.add(answer);
-    }
-
-    public UUID getUuidOfAssociatedSocket() {
-        return uuidOfAssociatedSocket;
     }
 
     @Override

@@ -9,3 +9,9 @@ Run Instructions:
 ```javac <Filename>.java```
 - Run the following to run the executable.
 ```java <Executable>```
+
+Future Work:
+- Handle race conditions in answer-forwarding.
+- Implement distributed storage for the ServerClient version of the QNA app. That is, have the central server not store any Questions, but rather query the respective askers and forward the responses when sharing questions to other members of the forum.
+- Implement a limit on the number of clients for the ServerClient verion of the QNA app.
+- Design and implement a P2P version of the QNA app.

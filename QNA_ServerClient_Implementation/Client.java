@@ -81,7 +81,12 @@ public class Client {
                                 out.flush();
                                 out.println("1"); // write to socket
                                 lastQuestionRead = in.readLine(); // read from socket
-                                System.out.println(lastQuestionRead);
+                                if (lastQuestionRead == null){
+                                    System.out.println("Server has disconnected");
+                                }
+                                else{
+                                    System.out.println(lastQuestionRead);
+                                }
                                 break;
                             case 2:
                                 System.out.println("Enter your answer to the last question on a single line: ");
@@ -105,13 +110,6 @@ public class Client {
                         System.out.println("To quit the program, enter 4.");
                         code = Integer.parseInt(stdIn.readLine());
                     }
-
-                String userInput = stdIn.readLine();
-                while (!(userInput.equals("\\disconnect"))) {
-                    out.flush();
-                    out.println(userInput);
-                    userInput = stdIn.readLine();
-                }
             }
             else{
                 System.out.println("Problem in connecting to server.");
@@ -146,6 +144,10 @@ public class Client {
                     while (!interrupted()) {
                         String answered_question = in.readLine(); // read from socket
                         String answer = in.readLine(); // read from socket
+                        if (answered_question == null || answer == null){
+                            System.out.println("Server has disconnected");
+                            this.interrupt();
+                        }
                         // store answer to question
                         lock_clientQuestions.lock();
                         for (Question question : clientQuestions) {
